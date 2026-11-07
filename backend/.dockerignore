@@ -1,0 +1,9 @@
+.git
+.gitignore
+.env
+tests
+graphify-out
+*.log
+
+*service-account*.json
+*firebase-adminsdk*.json

@@ -1,0 +1,310 @@
+/* ==========================================================================
+   MIHAN PLATFORM - DASHBOARD (GREEN IDENTITY & MODERN WORKFLOW)
+   ========================================================================== */
+
+.dashboard-body {
+  background-color: #f2f7f6;
+  font-family: 'Cairo', system-ui, -apple-system, sans-serif !important;
+  color: #132a28;
+}
+
+.dash-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar in Signature Green Theme */
+.dash-sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #0b3734 0%, #0d4440 60%, #092c2a 100%);
+  color: #c7ece6;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1040;
+  border-inline-end: 1px solid rgba(20, 184, 166, 0.25);
+  box-shadow: 4px 0 25px rgba(11, 55, 52, 0.2);
+}
+
+.dash-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.dash-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+.sidebar-brand {
+  padding: 1.5rem 1.25rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(11, 55, 52, 0.4);
+}
+
+.sidebar-brand-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.65rem;
+  text-decoration: none;
+}
+
+.sidebar-logo {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(94, 234, 212, 0.4);
+}
+
+.sidebar-brand-text {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.sidebar-brand-text small {
+  display: block;
+  font-size: 0.76rem;
+  color: #a7f3d0;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 1.1rem 0.85rem;
+  margin: 0;
+}
+
+.sidebar-section {
+  padding: 0.9rem 0.85rem 0.45rem;
+  color: #5eead4;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sidebar-nav li a {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: #e6f7f5;
+  text-decoration: none;
+  padding: 0.8rem 1rem;
+  margin: 0.22rem 0;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.94rem;
+  transition: all 0.2s ease;
+}
+
+.sidebar-nav li a i {
+  width: 22px;
+  text-align: center;
+  font-size: 1.05rem;
+  color: #5eead4;
+}
+
+.sidebar-nav li a:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transform: translateX(-3px);
+}
+
+.sidebar-nav li a.active {
+  background: linear-gradient(90deg, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0.15) 100%);
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: inset 4px 0 0 #5eead4;
+}
+
+/* Topbar */
+.dash-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dash-topbar {
+  background: #ffffff;
+  padding: 0.85rem 2rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #d4e7e4;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.04);
+}
+
+.dash-topbar .icon-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #d4e7e4;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f766e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.dash-topbar .icon-btn:hover {
+  background: #ecfdf5;
+  border-color: #0f766e;
+}
+
+.dash-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 12px;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+}
+
+.dash-user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+
+.dash-user-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0b3734;
+}
+
+/* Dashboard Main */
+.dash-main {
+  padding: 2.2rem;
+  max-width: 1540px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1.5px solid #d4e7e4;
+}
+
+.page-heading h1, .page-heading h2, .page-heading h3 {
+  font-weight: 900;
+  color: #0b3734;
+  margin: 0;
+  font-size: 1.65rem;
+}
+
+.page-heading p {
+  color: #527976;
+  margin: 0.35rem 0 0;
+}
+
+/* Stat Cards in Green */
+.stat-card {
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid #d4e7e4;
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.05);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(15, 118, 110, 0.1);
+  border-color: #5eead4;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #0f766e 0%, #14b8a6 100%);
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex: 0 0 auto;
+  background: #ecfdf5;
+  color: #0f766e;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #0b3734;
+  line-height: 1.2;
+  margin: 0.3rem 0;
+}
+
+.stat-label {
+  color: #527976;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.dashboard-panel, .card {
+  background: #ffffff;
+  border: 1px solid #d4e7e4;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.04);
+  padding: 1.5rem;
+}
+
+.dashboard-panel h5, .dashboard-panel h6, .card h6 {
+  font-weight: 800;
+  color: #0b3734;
+}
+
+@media (max-width: 991px) {
+  .dash-sidebar {
+    position: fixed;
+    inset-inline-start: -290px;
+  }
+  .dash-sidebar.open {
+    inset-inline-start: 0;
+  }
+  .mobile-overlay.show {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 55, 52, 0.6);
+    z-index: 1035;
+  }
+  .dash-main { padding: 1.25rem; }
+  .dash-topbar { padding: 0.75rem 1.25rem; }
+}

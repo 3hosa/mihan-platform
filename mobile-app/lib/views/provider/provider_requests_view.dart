@@ -1,0 +1,266 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../config/app_theme.dart';
+import '../../config/currency_helper.dart';
+import '../../controllers/provider_controller.dart';
+import '../widgets/presentation_widgets.dart';
+import 'provider_request_detail_view.dart';
+import 'provider_application_view.dart';
+
+class ProviderRequestsView extends StatefulWidget {
+  const ProviderRequestsView({super.key});
+
+  @override
+  State<ProviderRequestsView> createState() => _ProviderRequestsViewState();
+}
+
+class _ProviderRequestsViewState extends State<ProviderRequestsView> {
+  String _filter = 'all'; // all, pending, active, completed
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProviderController>().loadRequests();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.watch<ProviderController>();
+
+    final filteredRequests = provider.requests.where((r) {
+      if (_filter == 'pending') return r.isPending;
+      if (_filter == 'active') return r.isAccepted || r.isInProgress || r.isAwaitingConfirmation;
+      if (_filter == 'completed') return r.isCompleted;
+      return true;
+    }).toList();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('طلبات الخدمة'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => provider.loadRequests(),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          // Filter Chips
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Row(
+              children: [
+                _buildFilterChip('الكل', 'all'),
+                const SizedBox(width: 8),
+                _buildFilterChip('بانتظار الموافقة', 'pending'),
+                const SizedBox(width: 8),
+                _buildFilterChip('قيد التنفيذ', 'active'),
+                const SizedBox(width: 8),
+                _buildFilterChip('مكتملة', 'completed'),
+              ],
+            ),
+          ),
+
+          Expanded(
+            child: provider.isLoading && filteredRequests.isEmpty
+                ? const Center(child: CircularProgressIndicator())
+                : provider.needsVerification
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: Colors.amber.shade50,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(Icons.verified_user_outlined, size: 64, color: Colors.amber.shade800),
+                              ),
+                              const SizedBox(height: 20),
+                              const Text(
+                                'التوثيق الإداري مطلوب أولاً',
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'لا يمكن عرض أو استقبال الطلبات إلا بعد توثيق حسابك ومراجعة بياناتك وشهاداتك المهنية من قبل إدارة المنصة.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 13, color: AppTheme.textSecondary, height: 1.5),
+                              ),
+                              const SizedBox(height: 24),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppTheme.primary,
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (_) => const ProviderApplicationView()),
+                                  ).then((_) => provider.loadRequests());
+                                },
+                                icon: const Icon(Icons.upload_file_rounded),
+                                label: const Text('تقديم / متابعة طلب التوثيق'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    : filteredRequests.isEmpty
+                        ? EmptyStateWidget(
+                            icon: Icons.assignment_outlined,
+                            title: 'لا توجد طلبات في هذا القسم',
+                            message: 'ستظهر هنا طلبات العملاء المطابقة لمهنتك ومناطق تغطيتك.',
+                            onRetry: () => provider.loadRequests(),
+                          )
+                    : RefreshIndicator(
+                        onRefresh: () => provider.loadRequests(),
+                        child: ListView.separated(
+                          padding: const EdgeInsets.all(16),
+                          itemCount: filteredRequests.length,
+                          separatorBuilder: (_, __) => const SizedBox(height: 14),
+                          itemBuilder: (context, index) {
+                            final req = filteredRequests[index];
+                            return InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => ProviderRequestDetailView(requestId: req.id),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: AppTheme.border),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          req.requestNumber,
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: AppTheme.primary),
+                                        ),
+                                        StatusBadge(status: req.status, label: req.statusArabic),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      req.serviceNameAr ?? 'خدمة فنية',
+                                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      req.description,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.person_outline, size: 16, color: AppTheme.textSecondary),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          req.customerName ?? 'عميل المنصة',
+                                          style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary),
+                                        ),
+                                        const Spacer(),
+                                        if (req.budget != null)
+                                          Text(
+                                            CurrencyHelper.format(req.budget),
+                                            style: const TextStyle(fontWeight: FontWeight.bold, color: AppTheme.secondary),
+                                          ),
+                                      ],
+                                    ),
+                                    const Divider(height: 20),
+
+                                    // Action Buttons based on status
+                                    if (req.isPending) ...[
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(backgroundColor: AppTheme.secondary),
+                                              onPressed: provider.isActionLoading ? null : () async {
+                                                final ok = await provider.acceptRequest(req.id);
+                                                if (ok && context.mounted) {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    const SnackBar(content: Text('تم قبول الطلب بنجاح!'), backgroundColor: AppTheme.success),
+                                                  );
+                                                }
+                                              },
+                                              child: const Text('قبول الطلب'),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: OutlinedButton(
+                                              style: OutlinedButton.styleFrom(foregroundColor: AppTheme.error),
+                                              onPressed: provider.isActionLoading ? null : () async {
+                                                final ok = await provider.rejectRequest(req.id);
+                                                if (ok && context.mounted) {
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    const SnackBar(content: Text('تم رفض واستبعاد الطلب من قائمتك')),
+                                                  );
+                                                }
+                                              },
+                                              child: const Text('رفض'),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ] else if (req.isAccepted || req.isInProgress || req.isAwaitingConfirmation) ...[
+                                      CustomButton(
+                                        text: req.isAwaitingConfirmation ? 'متابعة الاستلام' : req.isAccepted ? 'متابعة الاتفاق والتنفيذ' : 'متابعة العمل والتسليم',
+                                        icon: Icons.arrow_back_rounded,
+                                        onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ProviderRequestDetailView(requestId: req.id))),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterChip(String label, String value) {
+    final isSelected = _filter == value;
+    return ChoiceChip(
+      label: Text(label),
+      selected: isSelected,
+      onSelected: (_) => setState(() => _filter = value),
+      selectedColor: AppTheme.primary,
+      labelStyle: TextStyle(
+        color: isSelected ? Colors.white : AppTheme.textPrimary,
+        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+        fontSize: 13,
+      ),
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(color: isSelected ? AppTheme.primary : AppTheme.border),
+      ),
+    );
+  }
+}

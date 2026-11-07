@@ -1,0 +1,477 @@
+/* ==========================================================================
+   MIHAN PLATFORM - CORE STYLESHEET (GREEN & TEAL BRAND IDENTITY)
+   Identity: Emerald Green (#0F766E), Rich Forest Teal (#115E59), Vibrant Mint (#14B8A6), Amber (#F59E0B)
+   Font: Cairo (كايرو)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Brand Green Colors (هوية مِهن الخضراء الأصلية) */
+  --mihan-green: #0f766e;
+  --mihan-green-dark: #134e4a;
+  --mihan-green-deep: #0b3734;
+  --mihan-green-light: #14b8a6;
+  --mihan-green-soft: #f0fdf4;
+  --mihan-green-tint: #ecfdf5;
+  --mihan-primary: #0f766e;
+  --mihan-primary-dark: #115e59;
+  --mihan-primary-light: #14b8a6;
+  --mihan-accent: #f59e0b;
+  --mihan-accent-dark: #d97706;
+
+  /* Neutrals & Surfaces */
+  --mihan-ink: #132a28;
+  --mihan-muted: #527976;
+  --mihan-bg: #f4f8f7;
+  --mihan-card: #ffffff;
+  --mihan-border: #d4e7e4;
+  --mihan-border-light: #e6f3f1;
+
+  /* Shadows */
+  --mihan-shadow-sm: 0 4px 12px rgba(15, 118, 110, 0.06);
+  --mihan-shadow: 0 10px 25px rgba(15, 118, 110, 0.1);
+  --mihan-shadow-lg: 0 20px 40px rgba(11, 55, 52, 0.18);
+
+  /* Radius */
+  --mihan-radius-sm: 10px;
+  --mihan-radius: 16px;
+  --mihan-radius-lg: 24px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 15px;
+}
+
+body {
+  background-color: var(--mihan-bg);
+  color: var(--mihan-ink);
+  font-family: 'Cairo', system-ui, -apple-system, sans-serif !important;
+  font-weight: 500;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cairo', sans-serif !important;
+  font-weight: 800;
+  color: var(--mihan-green-deep);
+  line-height: 1.3;
+}
+
+a {
+  color: var(--mihan-green);
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+a:hover {
+  color: var(--mihan-green-dark);
+}
+
+.container {
+  max-width: 1220px;
+}
+
+/* ==========================================================================
+   NAVBAR (EMERALD GREEN BRAND IDENTITY)
+   ========================================================================== */
+.brand-nav {
+  background: linear-gradient(135deg, #0b3734 0%, #0f766e 60%, #115e59 100%) !important;
+  box-shadow: 0 4px 20px rgba(11, 55, 52, 0.25);
+  border-bottom: 2px solid rgba(20, 184, 166, 0.35);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1050;
+}
+
+.brand-nav .navbar-brand {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.brand-logo-mark {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.brand-nav .nav-link {
+  color: #e6f7f5 !important;
+  font-weight: 700;
+  font-size: 0.94rem;
+  padding: 0.55rem 0.95rem !important;
+  border-radius: var(--mihan-radius-sm);
+  transition: all 0.22s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.brand-nav .nav-link i {
+  color: #5eead4;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.brand-nav .nav-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.brand-nav .nav-link:hover i {
+  transform: scale(1.15);
+  color: #ffffff;
+}
+
+.brand-nav .nav-link.active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff !important;
+  box-shadow: inset 0 -2px 0 #5eead4;
+}
+
+.brand-nav .btn-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff !important;
+  font-weight: 800;
+  border: none;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn {
+  font-family: 'Cairo', sans-serif !important;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--mihan-radius-sm);
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(15, 118, 110, 0.25);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background: linear-gradient(135deg, #0b3734 0%, #0f766e 100%);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(15, 118, 110, 0.35);
+}
+
+.btn-outline-primary {
+  color: #0f766e;
+  border: 1.5px solid #0f766e;
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background: #0f766e;
+  color: #ffffff;
+  border-color: #0f766e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 118, 110, 0.2);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   HERO BANNER (ROYAL GREEN GRADIENT & MESH)
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0b3734 0%, #0f766e 55%, #14b8a6 100%);
+  color: #ffffff;
+  border-radius: var(--mihan-radius-lg);
+  padding: 4.5rem 3.5rem;
+  box-shadow: var(--mihan-shadow-lg);
+  margin-bottom: 2.5rem;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(94, 234, 212, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+  inset-inline-end: -100px;
+  top: -150px;
+  pointer-events: none;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  inset-inline-start: -80px;
+  bottom: -100px;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #f0fdfa;
+  margin-bottom: 1.25rem;
+  backdrop-filter: blur(8px);
+}
+
+.hero-section h1 {
+  font-size: clamp(2.3rem, 5vw, 3.8rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.25;
+}
+
+.hero-section .text-warning {
+  color: #fbbf24 !important;
+  text-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
+}
+
+.hero-section .lead {
+  color: #f0fdfa;
+  font-weight: 400;
+  max-width: 700px;
+  line-height: 1.8;
+  font-size: 1.15rem;
+}
+
+.hero-search {
+  background: #ffffff;
+  border-radius: var(--mihan-radius);
+  padding: 0.5rem 0.6rem;
+  display: flex;
+  gap: 0.5rem;
+  max-width: 740px;
+  box-shadow: 0 15px 35px rgba(11, 55, 52, 0.3);
+}
+
+.hero-search input {
+  border: 0;
+  outline: 0;
+  flex: 1;
+  padding: 0.85rem 1.25rem;
+  min-width: 0;
+  font-family: 'Cairo', sans-serif;
+  font-size: 1.05rem;
+  color: var(--mihan-ink);
+  background: transparent;
+}
+
+.hero-search .btn {
+  white-space: nowrap;
+  padding: 0.8rem 2rem;
+  font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   TRUST STATS (GREEN THEME)
+   ========================================================================== */
+.trust-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.trust-stat {
+  background: #ffffff;
+  border: 1px solid var(--mihan-border);
+  border-radius: var(--mihan-radius);
+  box-shadow: var(--mihan-shadow-sm);
+  padding: 1.75rem 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.trust-stat::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 15%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #0f766e, transparent);
+}
+
+.trust-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--mihan-shadow);
+  border-color: #99f6e4;
+}
+
+.trust-stat .num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #0f766e;
+  line-height: 1.2;
+}
+
+.trust-stat .stat-label {
+  color: var(--mihan-muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   CARDS & GRIDS
+   ========================================================================== */
+.card, .category-card, .provider-card, .ai-card {
+  background: #ffffff;
+  border: 1px solid var(--mihan-border);
+  border-radius: var(--mihan-radius);
+  box-shadow: var(--mihan-shadow-sm);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-card:hover, .provider-card:hover, .ai-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--mihan-shadow);
+  border-color: #5eead4;
+}
+
+.category-card {
+  padding: 1.8rem 1.2rem;
+  text-align: center;
+}
+
+.category-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  background: var(--mihan-green-tint);
+  color: #0f766e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  transition: all 0.25s ease;
+  margin-bottom: 1.1rem;
+}
+
+.category-card:hover .category-icon {
+  background: #0f766e;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.provider-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--mihan-green-tint);
+  color: #0f766e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+/* Badges */
+.badge-soft-success {
+  background: #ecfdf5;
+  color: #059669;
+}
+.badge-soft-warning {
+  background: #fffbeb;
+  color: #d97706;
+}
+.badge-soft-primary {
+  background: #f0fdfa;
+  color: #0f766e;
+}
+
+/* ==========================================================================
+   FOOTER (RICH EMERALD GREEN IDENTITY)
+   ========================================================================== */
+.footer-main {
+  background: linear-gradient(180deg, #0b3734 0%, #062220 100%) !important;
+  color: #bbf7d0;
+  padding: 4rem 0 2rem;
+  margin-top: 5rem;
+  border-top: 3px solid #0f766e;
+}
+
+.footer-main a {
+  color: #e6f7f5;
+  transition: all 0.2s ease;
+}
+
+.footer-main a:hover {
+  color: #5eead4;
+}
+
+.footer-logo {
+  width: 56px;
+  height: auto;
+  border-radius: 14px;
+  padding: 4px;
+  background: #ffffff;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 991px) {
+  .hero-section { padding: 3.5rem 2rem; }
+  .trust-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .hero-section { padding: 2.5rem 1.5rem; }
+  .hero-search { flex-direction: column; background: transparent; box-shadow: none; padding: 0; }
+  .hero-search input { background: #ffffff; border-radius: var(--mihan-radius-sm); margin-bottom: 0.5rem; }
+  .hero-search .btn { width: 100%; }
+}
